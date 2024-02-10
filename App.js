@@ -5,6 +5,7 @@ import {
   FlatList,
   Button,
  } from 'react-native';
+ import { StatusBar } from 'expo-status-bar';
 
  import GoalItem from './components/GoalItem';
  import GoalInput from './components/GoalInput';
@@ -36,44 +37,47 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <Button 
-        title="Add new goal" 
-        color="#5e0acc" 
-        onPress={startAddGoalHandler} 
-      />
-      <GoalInput 
-        onAddGoal={addGoalHandler} 
-        onCancel={endAddGoalHandler}
-        visible={modalIsVisible}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList 
-          data={courseGoals}
-          renderItem={itemData => {
-            const {item} = itemData;
-            const goal = item.text;
-            return (
-              <GoalItem 
-                id={item.id}
-                text={goal} 
-                onDeleteItem={deleteGoalHandler} 
-              />
-            );
-          }}
-        />
-      </View>
-    </View>
+    <>
+        <StatusBar style='light' />
+        <View style={styles.appContainer}>
+            <Button 
+            title="Add new goal" 
+            color="#5e0acc" 
+            onPress={startAddGoalHandler} 
+            />
+            <GoalInput 
+            onAddGoal={addGoalHandler} 
+            onCancel={endAddGoalHandler}
+            visible={modalIsVisible}
+            />
+            <View style={styles.goalsContainer}>
+            <FlatList 
+                data={courseGoals}
+                renderItem={itemData => {
+                const {item} = itemData;
+                const goal = item.text;
+                return (
+                    <GoalItem 
+                    id={item.id}
+                    text={goal} 
+                    onDeleteItem={deleteGoalHandler} 
+                    />
+                );
+                }}
+            />
+            </View>
+        </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
- appContainer: {
-  flex: 1,
-  padding: 50,
-  paddingHorizontal: 16,
- },
- goalsContainer: {
-  flex: 5,
- },
+    appContainer: {
+        flex: 1,
+        padding: 50,
+        paddingHorizontal: 16,
+    },
+        goalsContainer: {
+        flex: 5,
+    },
 });
